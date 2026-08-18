@@ -7,20 +7,23 @@ import {
   Github,
   Linkedin,
   Mail,
+  ScrollText,
   MapPin,
   MoveRight,
   ScanSearch,
   Sparkle,
+  Code,
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
-import Particles from '@tsparticles/react';
-import { initParticlesEngine } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
+import Particles from "@tsparticles/react";
+import { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 type Project = {
   title: string;
   year: string;
+  github: string;
   category: string;
   summary: string;
   outcome: string;
@@ -31,77 +34,98 @@ type Project = {
 
 type WritingSample = {
   label: string;
+  image: string;
   title: string;
   text: string;
 };
 
 const projects: Project[] = [
   {
-  title: "SIMD-Optimized Levenshtein Distance",
-  year: "2025",
-  category: "Systems / Performance",
-  summary:
-    "A highly optimized edit-distance implementation in C using AVX2 and POSIX, designed to significantly outperform naive approaches.",
-  outcome:
-    "Demonstrated measurable performance gains through vectorization and low-level optimization.",
-  tools: ["C", "AVX2", "SIMD", "POSIX"],
-  metrics: [
-    { label: "Focus", value: "Vectorization" },
-    { label: "Type", value: "Algorithm Optimization" },
-    { label: "Level", value: "Low-Level Systems" },
-  ],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    title: "SIMD-Optimized Levenshtein Distance",
+    year: "2025",
+    github: "https://github.com/Ra4ster/Optimized-Levenshtein-Distance",
+    category: "Systems / Performance",
+    summary:
+      "A highly optimized edit-distance implementation in C using AVX2 and POSIX, designed to significantly outperform naive approaches.",
+    outcome:
+      "Demonstrated measurable performance gains through vectorization and low-level optimization.",
+    tools: ["C", "AVX2", "SIMD", "POSIX"],
+    metrics: [
+      { label: "Focus", value: "Vectorization" },
+      { label: "Type", value: "Algorithm Optimization" },
+      { label: "Level", value: "Low-Level Systems" },
+    ],
+    image: "/public/LevenshteinDistanceOutput.png",
   },
   {
-  title: "Moderation Classifier (BERT)",
-  year: "2026",
-  category: "Machine Learning",
-  summary:
-    "A multi-class moderation classifier built using BERT with PyTorch and ONNX, designed for real-time content classification.",
-  outcome:
-    "Built an end-to-end ML pipeline including training, optimization, and deployable inference.",
-  tools: ["Python", "PyTorch", "ONNX", "Transformers"],
-  metrics: [
-    { label: "Type", value: "NLP" },
-    { label: "Model", value: "BERT" },
-    { label: "Task", value: "Classification" },
-  ],
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    title: "Moderation Classifier (BERT)",
+    year: "2026",
+    github: "https://github.com/Ra4ster/Automod-Classifier",
+    category: "Machine Learning",
+    summary:
+      "A multi-class moderation classifier built using BERT with PyTorch and ONNX, designed for real-time content classification.",
+    outcome:
+      "Built an end-to-end ML pipeline including training, optimization, and deployable inference.",
+    tools: ["Python", "PyTorch", "ONNX", "Transformers"],
+    metrics: [
+      { label: "Type", value: "NLP" },
+      { label: "Model", value: "BERT" },
+      { label: "Task", value: "Classification" },
+    ],
+    image: "/public/automod.png",
   },
   {
-  title: "Custom Redis Server",
-  year: "2025",
-  category: "Systems / Backend",
-  summary:
-    "A Redis-like server implemented in C++, focusing on networking, data structures, and performance.",
-  outcome:
-    "Explored backend architecture and low-level system design principles.",
-  tools: ["C++", "Networking", "Data Structures"],
-  metrics: [
-    { label: "Type", value: "Backend System" },
-    { label: "Focus", value: "Performance" },
-    { label: "Level", value: "Systems" },
-  ],
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80",
+    title: "Custom Desktop Environment",
+    year: "2025",
+    github: "https://github.com/Balcony4Windows/Railing",
+    category: "Systems / UX",
+    summary:
+      "A Redis-like server implemented in C++, focusing on networking, data structures, and performance.",
+    outcome:
+      "A taskbar and desktop implemented in Win32, focusing on webview, reverse engineering, and performance.",
+    tools: ["C++", "Networking", "Data Structures"],
+    metrics: [
+      { label: "Type", value: "UI/UX" },
+      { label: "Focus", value: "Performance" },
+      { label: "Level", value: "Systems" },
+    ],
+    image: "/public/glass_pill.png",
+  },
+  {
+    title: "Deepity",
+    year: "2026",
+    github: "https://github.com/Ra4ster/deepity",
+    category: "Machine Learning",
+    summary:
+      "A predictive coding library created in C++ with bindings for Python, delivering performance on CPU currently faster than top libraries like pcn-torch.",
+    outcome:
+      "93% accuracy on MNIST in 1000 seconds, and neurologically inspired software, available with clean documentation.",
+    tools: ["C++", "BLAS", "OMP", "Python", "OpenMP", "CUDA", "CMake"],
+    metrics: [
+      { label: "Type", value: "AI/ML" },
+      { label: "Focus", value: "Performance & DevX" },
+      { label: "Level", value: "Full Stack" },
+    ],
+    image: "/public/MNIST_results.png",
   },
 ];
 
 const writingSamples: WritingSample[] = [
   {
     label: "What I Value",
+    image: "/Rplot.png",
     title: "Clarity before complexity.",
     text: "I build analytics work that helps people decide faster: cleaner dashboards, sharper summaries, and the right amount of depth behind the recommendation.",
   },
   {
     label: "How I Work",
+    image: "/Swiss_Roll_2.png",
     title: "Analytical, practical, reliable.",
     text: "I like ambiguous problems that need structure. My instinct is to turn messy data into something decision-makers can trust, use, and revisit.",
   },
   {
     label: "What I’m Looking For",
+    image: "/HR_Visualization.png",
     title: "Real analytics work with real stakes.",
     text: "I am looking for internships and opportunities where strong quantitative thinking, communication, and ownership all matter at once.",
   },
@@ -286,21 +310,21 @@ function PretextParagraph({
         className="max-w-2xl text-[18px] leading-[1.8] text-zinc-700"
       >
         {lines.map((line, lineIndex) => (
-<div key={lineIndex} className="mb-1">
-  <motion.span
-    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-    whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.2 }}
-    transition={{
-      duration: 0.45,
-      ease: [0.22, 1, 0.36, 1],
-      delay: 0.06 * lineIndex,
-    }}
-    className="block text-zinc-700 will-change-transform"
-  >
-    {line}
-  </motion.span>
-</div>
+          <div key={lineIndex} className="mb-1">
+            <motion.span
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.06 * lineIndex,
+              }}
+              className="block text-zinc-700 will-change-transform"
+            >
+              {line}
+            </motion.span>
+          </div>
         ))}
       </div>
     </motion.article>
@@ -309,6 +333,7 @@ function PretextParagraph({
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const reduceMotion = useReducedMotion();
+
   const { ref, summary } = useAdaptiveSummary(
     project.summary,
     "500 15px Inter",
@@ -323,18 +348,34 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.55, delay: index * 0.07 }}
       className="flex h-full flex-col overflow-hidden border border-zinc-300 bg-white/70 backdrop-blur-[3px]"
     >
-      <div className="group relative h-56 shrink-0 overflow-hidden border-b border-zinc-300 bg-zinc-100">
+      {/* Image / GitHub link */}
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`View ${project.title} on GitHub`}
+        className="group relative h-56 shrink-0 overflow-hidden border-b border-zinc-300 bg-zinc-100"
+      >
         <img
           src={project.image}
           alt={project.title}
           className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
         />
+
         <div className="absolute left-4 top-4 border border-white/30 bg-black/45 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-white backdrop-blur-sm">
           Figure 0{index + 1}
         </div>
-      </div>
 
-      <div className="grid flex-1 gap-0 grid-rows-[1fr_auto] md:grid-cols-[minmax(0,1fr)_156px] md:grid-rows-1 lg:grid-cols-1 lg:grid-rows-[1fr_auto]">
+        {/* GitHub hover overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/30">
+          <span className="translate-y-2 rounded border border-white/60 bg-black/50 px-3 py-1.5 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            View on GitHub ↗
+          </span>
+        </div>
+      </a>
+
+      {/* Card body */}
+      <div className="grid flex-1 grid-rows-[1fr_auto] gap-0 md:grid-cols-[minmax(0,1fr)_156px] md:grid-rows-1 lg:grid-cols-1 lg:grid-rows-[1fr_auto]">
         <div className="p-5">
           <div className="flex items-center justify-between gap-4 text-[11px] font-medium uppercase tracking-[0.24em] text-zinc-500">
             <span>{project.category}</span>
@@ -369,22 +410,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="text-[11px] font-medium uppercase tracking-[0.22em] text-zinc-500">
               Result
             </div>
+
             <p className="mt-2 text-sm leading-7 text-zinc-700">
               {project.outcome}
             </p>
           </div>
         </div>
 
-        <div className="border-t border-zinc-300 bg-[#f3efe8]/70 backdrop-blur-[3px] p-4 md:border-l md:border-t-0 lg:border-l-0 lg:border-t">
+        {/* Case data */}
+        <div className="border-t border-zinc-300 bg-[#f3efe8]/70 p-4 backdrop-blur-[3px] md:border-l md:border-t-0 lg:border-l-0 lg:border-t">
           <div className="text-[11px] font-medium uppercase tracking-[0.22em] text-zinc-500">
             Case Data
           </div>
+
           <div className="mt-4 grid gap-4 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
             {project.metrics.map((metric) => (
               <div key={metric.label}>
                 <div className="text-[10px] uppercase tracking-[0.18em] text-zinc-500">
                   {metric.label}
                 </div>
+
                 <div className="mt-1 text-sm font-medium text-zinc-900">
                   {metric.value}
                 </div>
@@ -420,8 +465,7 @@ function FeaturePanel({
 export default function App() {
   const reduceMotion = useReducedMotion();
   const heroText =
-    "Data analytics for forecasting, dashboards, and decisions that actually move work forward.";
-  
+    "Engineering high-performance systems, scalable infrastructure, and ML pipelines that deliver real gains.";
   const [particlesReady, setParticlesReady] = useState(false);
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -431,72 +475,75 @@ export default function App() {
     });
   }, []);
 
-return (
+  return (
     <>
-{particlesReady && (
-  <div className="pointer-events-none fixed inset-0 z-0">
-    <Particles
-      id="portfolio-particles"
-      className="h-full w-full"
-      options={{
-        fullScreen: { enable: false },
-        background: { color: { value: "transparent" } },
-        fpsLimit: 120,
-        particles: {
-          number: {
-            value: 80,
-            density: { enable: true, width: 800, height: 800 },
-          },
-          color: { value: "#71717a" },
-          links: {
-            color: "#71717a",
-            distance: 150,
-            enable: true,
-            opacity: 0.3, // Thinner, subtle lines
-            width: 1,     // Canonical thin width
-          },
-          move: {
-            enable: true,
-            speed: 3,     // Faster "default" pace
-            direction: "none",
-            random: true,
-            straight: false,
-            outModes: { default: "out" },
-          },
-          opacity: {
-            value: 0.5,
-          },
-          size: {
-            value: { min: 1, max: 3 },
-          },
-        },
-        interactivity: {
-          events: {
-            onHover: {
-              enable: true,
-              mode: "repulse", // Switched from grab to repulse
-            },
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-          },
-          modes: {
-            repulse: {
-              distance: 100,
-              duration: 0.4,
-            },
-            push: {
-              quantity: 4,
-            },
-          },
-        },
-        detectRetina: true,
-      }}
-    />
-  </div>
-)}
-      <div className="relative z-10 mx-auto max-w-[1480px] px-5 pb-14 pt-5 sm:px-7 lg:px-10">
+      {particlesReady && (
+        <div className="pointer-events-none fixed inset-0 z-0">
+          <Particles
+            id="portfolio-particles"
+            className="h-full w-full"
+            options={{
+              fullScreen: { enable: false },
+              background: { color: { value: "transparent" } },
+              fpsLimit: 120,
+              particles: {
+                number: {
+                  value: 80,
+                  density: { enable: true, width: 800, height: 800 },
+                },
+                color: { value: "#71717a" },
+                links: {
+                  color: "#71717a",
+                  distance: 150,
+                  enable: true,
+                  opacity: 0.3, // Thinner, subtle lines
+                  width: 1, // Canonical thin width
+                },
+                move: {
+                  enable: true,
+                  speed: 3, // Faster "default" pace
+                  direction: "none",
+                  random: true,
+                  straight: false,
+                  outModes: { default: "out" },
+                },
+                opacity: {
+                  value: 0.5,
+                },
+                size: {
+                  value: { min: 1, max: 3 },
+                },
+              },
+              interactivity: {
+                events: {
+                  onHover: {
+                    enable: true,
+                    mode: "repulse", // Switched from grab to repulse
+                  },
+                  onClick: {
+                    enable: true,
+                    mode: "push",
+                  },
+                },
+                modes: {
+                  repulse: {
+                    distance: 100,
+                    duration: 0.4,
+                  },
+                  push: {
+                    quantity: 4,
+                  },
+                },
+              },
+              detectRetina: true,
+            }}
+          />
+        </div>
+      )}
+      <div
+        id="top"
+        className="relative z-10 mx-auto max-w-[1480px] px-5 pb-14 pt-5 sm:px-7 lg:px-10"
+      >
         <motion.header
           initial={reduceMotion ? false : { opacity: 0, y: -18 }}
           animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -509,7 +556,7 @@ return (
                 Jack Rose
               </div>
               <div className="mt-1 text-xl font-semibold tracking-tight text-zinc-950">
-                Data Analytics Portfolio
+                Computational Analytics Portfolio
               </div>
             </div>
 
@@ -548,27 +595,29 @@ return (
 
               <div className="grid gap-4 border-b border-zinc-300 py-5 md:grid-cols-[1fr_auto] md:items-center">
                 <div className="text-sm leading-7 text-zinc-700">
-                  Data Analytics major focused on forecasting, KPI design,
-                  structured storytelling, and finding the signal that most
-                  dashboards bury.
+                  I build high-performance systems and machine learning
+                  infrastructure, focusing on optimization, scalability, and
+                  real-world deployment. My work spans SIMD-accelerated
+                  algorithms, networking systems, and local ML inference
+                  pipelines.
                 </div>
                 <div className="grid grid-cols-3 gap-6 text-xs uppercase tracking-[0.18em] text-zinc-500">
                   <div>
                     <div>Focus</div>
                     <div className="mt-2 text-sm font-medium normal-case tracking-normal text-zinc-900">
-                      Forecasting
+                      Optimization
                     </div>
                   </div>
                   <div>
                     <div>Tools</div>
                     <div className="mt-2 text-sm font-medium normal-case tracking-normal text-zinc-900">
-                      SQL / Python / BI
+                      C++ / PyTorch / AVX
                     </div>
                   </div>
                   <div>
                     <div>Mode</div>
                     <div className="mt-2 text-sm font-medium normal-case tracking-normal text-zinc-900">
-                      Decision Support
+                      Parallel Programming
                     </div>
                   </div>
                 </div>
@@ -577,15 +626,16 @@ return (
               <div className="flex flex-col justify-center py-10 sm:py-14">
                 <div className="mb-5 flex items-center gap-2 text-sm text-zinc-600">
                   <ScanSearch className="h-4 w-4" />
-                  Forecasting, KPI design, decision support
+                  Statistical modeling, optimization, & computational systems
+                  for actionable decision-making
                 </div>
                 <HeroHeadline text={heroText} />
                 <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-700 sm:text-[19px]">
-I build systems and analytics tools that emphasize performance,
-clarity, and practical use. My work spans low-level optimization,
-custom infrastructure, and machine learning applications—from
-SIMD-accelerated algorithms in C to neural classifiers and data
-analysis pipelines.
+                  I build systems and analytics tools that emphasize
+                  performance, clarity, and practical use. My work spans
+                  low-level optimization, custom infrastructure, and machine
+                  learning applications—from SIMD-accelerated algorithms in C to
+                  neural classifiers and data analysis pipelines.
                 </p>
               </div>
 
@@ -596,8 +646,8 @@ analysis pipelines.
                     Signal / Noise
                   </div>
                   <p className="mt-3 text-sm leading-7 text-zinc-700">
-                    The best analytics work reduces noise, sharpens priorities,
-                    and makes the next action clearer.
+                    The best analytics work is fundamentally epistemic work. The
+                    goal is to extract insights from data.
                   </p>
                 </div>
                 <div className="border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-4">
@@ -621,7 +671,7 @@ analysis pipelines.
           >
             <div className="group relative min-h-[420px] overflow-hidden border border-zinc-300 bg-zinc-200">
               <img
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80"
+                src="/PomereneHall.jpg"
                 alt="Analytics workspace"
                 className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
               />
@@ -641,13 +691,11 @@ analysis pipelines.
                   </p>
                 </div>
                 <div className="grid gap-3 border-t border-white/20 pt-4 sm:grid-cols-3">
-                  {["Forecasting", "Dashboards", "Decision support"].map(
-                    (item) => (
-                      <div key={item} className="text-sm text-white/80">
-                        {item}
-                      </div>
-                    ),
-                  )}
+                  {["Systems", "Systems", "Machine Learning"].map((item) => (
+                    <div key={item} className="text-sm text-white/80">
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -656,21 +704,21 @@ analysis pipelines.
               <div className="border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-5">
                 <SectionLabel>Mini Case Snapshot</SectionLabel>
                 <div className="mt-4 text-4xl font-semibold tracking-tight text-zinc-950">
-                  10+ Projects
+                  100k+ Lines of Code
                 </div>
                 <p className="mt-3 text-sm leading-7 text-zinc-700">
-Multiple performance-focused systems projects, including
-SIMD-optimized algorithms, custom infrastructure, and
-machine learning classifiers.
+                  Multiple performance-focused systems projects, including
+                  SIMD-optimized algorithms, custom infrastructure, and machine
+                  learning classifiers.
                 </p>
               </div>
               <div className="border border-zinc-300 bg-[#ece7dd]/70 backdrop-blur-[3px] p-5">
                 <SectionLabel>Profile</SectionLabel>
                 <p className="mt-4 text-sm leading-7 text-zinc-700">
-                  Data Analytics student at OSU with strong systems and
-machine learning experience. Interested in performance,
-infrastructure, and building tools that bridge low-level
-efficiency with real-world applications.
+                  Data Analytics student at OSU with strong systems and machine
+                  learning experience. Interested in performance,
+                  infrastructure, and building tools that bridge low-level
+                  efficiency with real-world applications.
                 </p>
               </div>
             </div>
@@ -693,6 +741,36 @@ efficiency with real-world applications.
                     icon: <Mail className="h-4 w-4" />,
                     label: "Email",
                     href: "mailto:jackrose2335@gmail.com",
+                  },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between border border-zinc-300 px-4 py-3 text-sm text-zinc-700 transition hover:bg-zinc-50 hover:text-zinc-950"
+                  >
+                    <span className="flex items-center gap-3">
+                      {item.icon}
+                      {item.label}
+                    </span>
+                    <MoveRight className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+              <br />
+              <SectionLabel>Recent Projects</SectionLabel>
+              <div className="mt-5 grid gap-3">
+                {[
+                  {
+                    icon: <ScrollText className="h-4 w-4" />,
+                    label: "Truth is Conditional",
+                    href: "/bingham_TI.pdf",
+                  },
+                  {
+                    icon: <Code className="h-4 w-4" />,
+                    label: "Predictive Coding Library",
+                    href: "https://github.com/ra4ster/deepity",
                   },
                 ].map((item) => (
                   <a
@@ -721,9 +799,9 @@ efficiency with real-world applications.
               </h2>
             </div>
             <div className="max-w-md text-sm leading-7 text-zinc-600">
-              A selection of projects focused on forecasting, retention, and
-              operations visibility. Each one is framed as work that supports
-              decisions, not just reporting.
+              A selection of projects spanning systems programming, machine
+              learning, and algorithm optimization. Each one is built around a
+              concrete technical challenge and a measurable outcome.
             </div>
           </div>
 
@@ -748,32 +826,32 @@ efficiency with real-world applications.
               What I bring to an analytics team.
             </h2>
             <p className="mt-5 max-w-xl text-[16px] leading-8 text-zinc-700">
-I bring a mix of systems-level thinking and analytical reasoning.
-I am comfortable working across abstraction layers—from optimized
-C implementations to machine learning models and data pipelines—
-with a focus on building tools that are both efficient and usable.
+              I bring a mix of systems-level thinking and analytical reasoning.
+              I am comfortable working across abstraction layers—from optimized
+              C implementations to machine learning models and data pipelines—
+              with a focus on building tools that are both efficient and usable.
             </p>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               <FeaturePanel
                 icon={<BarChart3 className="h-5 w-5" />}
-title="Systems Programming"
-body="Experience building low-level systems in C and C++, including memory, performance, and architecture considerations."
+                title="Systems Programming"
+                body="Experience building low-level systems in C and C++, including memory, performance, and architecture considerations."
               />
               <FeaturePanel
                 icon={<Database className="h-5 w-5" />}
-title="Machine Learning"
-body="Built classification systems using modern ML frameworks including PyTorch and transformer models."
+                title="Machine Learning"
+                body="Built classification systems using modern ML frameworks including PyTorch and transformer models."
               />
               <FeaturePanel
                 icon={<Briefcase className="h-5 w-5" />}
-title="Performance Optimization"
-body="Focused on efficient implementations using SIMD, AVX2, and algorithmic improvements."
+                title="Performance Optimization"
+                body="Focused on efficient implementations using SIMD, AVX2, and algorithmic improvements."
               />
               <FeaturePanel
                 icon={<ScanSearch className="h-5 w-5" />}
-title="Software Engineering"
-body="Strong foundation across Java, Python, and C++, with experience building complete, usable systems."
+                title="Software Engineering"
+                body="Strong foundation across Java, Python, and C++, with experience building complete, usable systems."
               />
             </div>
           </div>
@@ -781,26 +859,30 @@ body="Strong foundation across Java, Python, and C++, with experience building c
           <div className="grid gap-5">
             <div className="overflow-hidden border border-zinc-300 bg-[#ece7dd]/70 backdrop-blur-[3px]">
               <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80"
-                alt="Desk with laptop and analytics setup"
+                src="/public/predGraph.png"
+                alt="Age/sex comparison"
                 className="h-full min-h-[360px] w-full object-cover"
               />
             </div>
 
             <div className="grid gap-5 sm:grid-cols-[1.15fr_0.85fr]">
               <div className="border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-5">
-                <SectionLabel>Featured Project</SectionLabel>
-                <div className="mt-4 max-w-xl text-[16px] leading-8 text-zinc-700">
-This section should highlight your strongest technical project—
-ideally your SIMD optimization or classifier—explaining the
-problem, approach, and why your solution is meaningfully better.
-                </div>
+                <SectionLabel>Featured Project</SectionLabel>{" "}
+                <a href="/STAT3302_HW2_LogisticRegression.pdf">
+                  <div className="mt-4 max-w-xl text-[16px] leading-8 text-zinc-700">
+                    Was there a meaningful difference in survival rates between
+                    men/women and between age aboard the Titanic? I fit an
+                    interaction model for Logistic Regression in R, and form a
+                    confidence interval on the joint contribution of age and
+                    sex.
+                  </div>
+                </a>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {[
-                    "Problem statement",
-                    "Approach",
-                    "Key metric",
-                    "Outcome",
+                    "Survival Analysis",
+                    "Logistic Regression",
+                    "Confidence Intervals",
+                    "Hypothesis Rejection",
                   ].map((item) => (
                     <span
                       key={item}
@@ -816,9 +898,9 @@ problem, approach, and why your solution is meaningfully better.
                 <SectionLabel>Strengths</SectionLabel>
                 <div className="mt-4 space-y-4">
                   {[
-                    "Structured analysis",
+                    "Problem solving",
                     "Clear reporting",
-                    "Business context",
+                    "Team supporting",
                     "Reliable execution",
                   ].map((item, index) => (
                     <div
@@ -839,70 +921,86 @@ problem, approach, and why your solution is meaningfully better.
 
         <section
           id="approach"
-          className="mt-20 border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-6 sm:p-8"
+          className="mt-20 border border-zinc-300 bg-white/70 p-6 backdrop-blur-[3px] sm:p-8"
         >
           <div className="mb-8 grid gap-4 border-b border-zinc-300 pb-4 md:grid-cols-[1fr_auto] md:items-end">
             <div>
               <SectionLabel>Approach</SectionLabel>
+
               <h2 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-950">
                 How I think about analytics work
               </h2>
             </div>
+
             <div className="max-w-md text-sm leading-7 text-zinc-600">
-              A few short statements that communicate how I approach analysis,
-              communication, and the kind of opportunities I want to grow into.
+              Clarity before complexity. Analysis grounded in real stakes.
+              Growing into roles that demand precision and impact.
             </div>
           </div>
 
           <div>
             {writingSamples.map((sample, index) => (
-              <PretextParagraph
+              <article
                 key={sample.title}
-                sample={sample}
-                index={index}
-              />
+                className="border-t border-zinc-200 py-8 first:border-t-0 first:pt-0"
+              >
+                <div className="flex flex-col gap-8 md:flex-row md:items-start">
+                  <div className="relative w-full shrink-0 overflow-hidden rounded-lg bg-zinc-100 shadow-md md:w-64">
+                    <img
+                      src={sample.image}
+                      alt={sample.title}
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
+
+                  <div className="flex-1">
+                    <PretextParagraph sample={sample} index={index} />
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </section>
 
-<section
-  id="contact"
-  className="mt-20 border border-zinc-300 bg-[#f3efe8]/70 backdrop-blur-[3px] p-6 sm:p-8"
->
-  {/* The main grid remains 2 columns: Text (Left) and Action Stack (Right) */}
-  <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-    
-    {/* Column 1: Text Content */}
-    <div>
-      <SectionLabel>Contact</SectionLabel>
-      <h2 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl max-w-3xl">
-        Open to internships, analytics projects, and teams that care about quality.
-      </h2>
-      <p className="mt-5 max-w-2xl text-[16px] leading-8 text-zinc-700">
-        I’m looking for internships and opportunities in software engineering, machine learning, or systems work where I can contribute to meaningful, technically challenging projects.
-      </p>
-    </div>
+        <section
+          id="contact"
+          className="mt-20 border border-zinc-300 bg-[#f3efe8]/70 backdrop-blur-[3px] p-6 sm:p-8"
+        >
+          {/* The main grid remains 2 columns: Text (Left) and Action Stack (Right) */}
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            {/* Column 1: Text Content */}
+            <div>
+              <SectionLabel>Contact</SectionLabel>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl max-w-3xl">
+                Open to internships, analytics projects, and teams that care
+                about quality.
+              </h2>
+              <p className="mt-5 max-w-2xl text-[16px] leading-8 text-zinc-700">
+                I’m looking for internships and opportunities in software
+                engineering, machine learning, or systems work where I can
+                contribute to meaningful, technically challenging projects.
+              </p>
+            </div>
 
-    {/* Column 2: The Vertical Stack (Image + Button) */}
-    <div className="flex flex-col items-end gap-8">
-      <img
-        src="https://avatars.githubusercontent.com/u/195119975?v=4"
-        alt="Jack Rose"
-        className="h-48 w-48 rounded-full object-cover border border-zinc-300 shadow-lg"
-      />
+            {/* Column 2: The Vertical Stack (Image + Button) */}
+            <div className="flex flex-col items-end gap-8">
+              <img
+                src="https://avatars.githubusercontent.com/u/195119975?v=4"
+                alt="Jack Rose"
+                className="h-48 w-48 rounded-full object-cover border border-zinc-300 shadow-lg"
+              />
 
-      <a
-        href="mailto:jackrose2335@gmail.com"
-        className="inline-flex items-center gap-3 border border-zinc-950 bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:translate-x-1"
-      >
-        Reach Out
-        <ArrowRight className="h-4 w-4" />
-      </a>
-    </div>
-
-  </div>
-</section>
-                <div className="mt-10 flex justify-end">
+              <a
+                href="mailto:jackrose2335@gmail.com"
+                className="inline-flex items-center gap-3 border border-zinc-950 bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:translate-x-1"
+              >
+                Reach Out
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+        <div className="mt-10 flex justify-end">
           <a
             href="#top"
             className="inline-flex items-center gap-2 border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 transition hover:bg-zinc-50 hover:text-zinc-950 hover:-translate-y-1"
