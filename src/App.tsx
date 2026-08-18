@@ -55,7 +55,7 @@ const projects: Project[] = [
       { label: "Type", value: "Algorithm Optimization" },
       { label: "Level", value: "Low-Level Systems" },
     ],
-    image: "/public/LevenshteinDistanceOutput.png",
+    image: "/LevenshteinDistanceOutput.png",
   },
   {
     title: "Moderation Classifier (BERT)",
@@ -72,7 +72,7 @@ const projects: Project[] = [
       { label: "Model", value: "BERT" },
       { label: "Task", value: "Classification" },
     ],
-    image: "/public/automod.png",
+    image: "/automod.png",
   },
   {
     title: "Custom Desktop Environment",
@@ -89,7 +89,7 @@ const projects: Project[] = [
       { label: "Focus", value: "Performance" },
       { label: "Level", value: "Systems" },
     ],
-    image: "/public/glass_pill.png",
+    image: "/glass_pill.png",
   },
   {
     title: "Deepity",
@@ -106,7 +106,7 @@ const projects: Project[] = [
       { label: "Focus", value: "Performance & DevX" },
       { label: "Level", value: "Full Stack" },
     ],
-    image: "/public/MNIST_results.png",
+    image: "/MNIST_results.png",
   },
 ];
 
@@ -859,7 +859,7 @@ export default function App() {
           <div className="grid gap-5">
             <div className="overflow-hidden border border-zinc-300 bg-[#ece7dd]/70 backdrop-blur-[3px]">
               <img
-                src="/public/predGraph.png"
+                src="/predGraph.png"
                 alt="Age/sex comparison"
                 className="h-full min-h-[360px] w-full object-cover"
               />
