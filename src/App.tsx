@@ -80,10 +80,10 @@ const projects: Project[] = [
     github: "https://github.com/Balcony4Windows/Railing",
     category: "Systems / UX",
     summary:
-      "A Redis-like server implemented in C++, focusing on networking, data structures, and performance.",
+      "A custom taskbar and desktop shell implemented in Win32, focusing on webview integration, reverse engineering, and rendering performance.",
     outcome:
-      "A taskbar and desktop implemented in Win32, focusing on webview, reverse engineering, and performance.",
-    tools: ["C++", "Networking", "Data Structures"],
+      "Built a functional Windows desktop replacement with a custom taskbar, emphasizing low-level UI performance and native interop.",
+    tools: ["C++", "Win32", "WebView", "Reverse Engineering"],
     metrics: [
       { label: "Type", value: "UI/UX" },
       { label: "Focus", value: "Performance" },
@@ -242,7 +242,7 @@ function HeroHeadline({ text }: { text: string }) {
   const { ref, lines } = useBalancedHeadline(text);
 
   return (
-    <div ref={ref} className="max-w-[980px]">
+    <div ref={ref} className="max-w-[500px]" aria-hidden="true">
       {lines.map((line, index) => (
         <motion.div
           key={`${line}-${index}`}
@@ -261,7 +261,7 @@ function HeroHeadline({ text }: { text: string }) {
             ease: [0.22, 1, 0.36, 1],
             delay: index * 0.08,
           }}
-          className="pb-[0.18em] text-[clamp(3.2rem,7vw,6.6rem)] font-semibold leading-[1.06] tracking-[-0.06em] text-zinc-950 will-change-transform"
+          className="pb-[0.18em] text-[clamp(3.2rem,4vw,6.6rem)] font-semibold leading-[1.06] tracking-[-0.06em] text-zinc-950 will-change-transform"
         >
           {line}
         </motion.div>
@@ -348,7 +348,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.55, delay: index * 0.07 }}
       className="flex h-full flex-col overflow-hidden border border-zinc-300 bg-white/70 backdrop-blur-[3px]"
     >
-      {/* Image / GitHub link */}
       <a
         href={project.github}
         target="_blank"
@@ -359,6 +358,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <img
           src={project.image}
           alt={project.title}
+          loading="lazy"
+          width={640}
+          height={224}
           className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
         />
 
@@ -366,7 +368,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           Figure 0{index + 1}
         </div>
 
-        {/* GitHub hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/30">
           <span className="translate-y-2 rounded border border-white/60 bg-black/50 px-3 py-1.5 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
             View on GitHub ↗
@@ -374,7 +375,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </a>
 
-      {/* Card body */}
       <div className="grid flex-1 grid-rows-[1fr_auto] gap-0 md:grid-cols-[minmax(0,1fr)_156px] md:grid-rows-1 lg:grid-cols-1 lg:grid-rows-[1fr_auto]">
         <div className="p-5">
           <div className="flex items-center justify-between gap-4 text-[11px] font-medium uppercase tracking-[0.24em] text-zinc-500">
@@ -416,8 +416,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </p>
           </div>
         </div>
-
-        {/* Case data */}
         <div className="border-t border-zinc-300 bg-[#f3efe8]/70 p-4 backdrop-blur-[3px] md:border-l md:border-t-0 lg:border-l-0 lg:border-t">
           <div className="text-[11px] font-medium uppercase tracking-[0.22em] text-zinc-500">
             Case Data
@@ -478,7 +476,7 @@ export default function App() {
   return (
     <>
       {particlesReady && (
-        <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="fixed inset-0 z-0">
           <Particles
             id="portfolio-particles"
             className="h-full w-full"
@@ -496,12 +494,12 @@ export default function App() {
                   color: "#71717a",
                   distance: 150,
                   enable: true,
-                  opacity: 0.3, // Thinner, subtle lines
-                  width: 1, // Canonical thin width
+                  opacity: 0.3,
+                  width: 1,
                 },
                 move: {
                   enable: true,
-                  speed: 3, // Faster "default" pace
+                  speed: 3,
                   direction: "none",
                   random: true,
                   straight: false,
@@ -518,7 +516,7 @@ export default function App() {
                 events: {
                   onHover: {
                     enable: true,
-                    mode: "repulse", // Switched from grab to repulse
+                    mode: "repulse",
                   },
                   onClick: {
                     enable: true,
@@ -555,9 +553,9 @@ export default function App() {
               <div className="text-sm font-medium uppercase tracking-[0.22em] text-zinc-500">
                 Jack Rose
               </div>
-              <div className="mt-1 text-xl font-semibold tracking-tight text-zinc-950">
+              <h1 className="mt-1 text-xl font-semibold tracking-tight text-zinc-950">
                 Computational Analytics Portfolio
-              </div>
+              </h1>
             </div>
 
             <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-700">
@@ -673,6 +671,9 @@ export default function App() {
               <img
                 src="/PomereneHall.jpg"
                 alt="Analytics workspace"
+                loading="eager"
+                width={900}
+                height={420}
                 className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -691,11 +692,13 @@ export default function App() {
                   </p>
                 </div>
                 <div className="grid gap-3 border-t border-white/20 pt-4 sm:grid-cols-3">
-                  {["Systems", "Systems", "Machine Learning"].map((item) => (
-                    <div key={item} className="text-sm text-white/80">
-                      {item}
-                    </div>
-                  ))}
+                  {["Systems", "Infrastructure", "Machine Learning"].map(
+                    (item) => (
+                      <div key={item} className="text-sm text-white/80">
+                        {item}
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             </div>
@@ -704,12 +707,12 @@ export default function App() {
               <div className="border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-5">
                 <SectionLabel>Mini Case Snapshot</SectionLabel>
                 <div className="mt-4 text-4xl font-semibold tracking-tight text-zinc-950">
-                  100k+ Lines of Code
+                  200k+ Lines of Code
                 </div>
                 <p className="mt-3 text-sm leading-7 text-zinc-700">
                   Multiple performance-focused systems projects, including
                   SIMD-optimized algorithms, custom infrastructure, and machine
-                  learning classifiers.
+                  learning libraries.
                 </p>
               </div>
               <div className="border border-zinc-300 bg-[#ece7dd]/70 backdrop-blur-[3px] p-5">
@@ -776,6 +779,8 @@ export default function App() {
                   <a
                     key={item.label}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between border border-zinc-300 px-4 py-3 text-sm text-zinc-700 transition hover:bg-zinc-50 hover:text-zinc-950"
                   >
                     <span className="flex items-center gap-3">
@@ -815,7 +820,6 @@ export default function App() {
             ))}
           </div>
         </section>
-
         <section
           id="feature"
           className="mt-20 grid gap-5 lg:grid-cols-[0.92fr_1.08fr]"
@@ -861,6 +865,9 @@ export default function App() {
               <img
                 src="/predGraph.png"
                 alt="Age/sex comparison"
+                loading="lazy"
+                width={720}
+                height={360}
                 className="h-full min-h-[360px] w-full object-cover"
               />
             </div>
@@ -868,7 +875,11 @@ export default function App() {
             <div className="grid gap-5 sm:grid-cols-[1.15fr_0.85fr]">
               <div className="border border-zinc-300 bg-white/70 backdrop-blur-[3px] p-5">
                 <SectionLabel>Featured Project</SectionLabel>{" "}
-                <a href="/STAT3302_HW2_LogisticRegression.pdf">
+                <a
+                  href="/STAT3302_HW2_LogisticRegression.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <div className="mt-4 max-w-xl text-[16px] leading-8 text-zinc-700">
                     Was there a meaningful difference in survival rates between
                     men/women and between age aboard the Titanic? I fit an
@@ -893,7 +904,6 @@ export default function App() {
                   ))}
                 </div>
               </div>
-
               <div className="border border-zinc-300 bg-[#f3efe8]/70 backdrop-blur-[3px] p-5">
                 <SectionLabel>Strengths</SectionLabel>
                 <div className="mt-4 space-y-4">
@@ -918,7 +928,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
         <section
           id="approach"
           className="mt-20 border border-zinc-300 bg-white/70 p-6 backdrop-blur-[3px] sm:p-8"
@@ -949,6 +958,9 @@ export default function App() {
                     <img
                       src={sample.image}
                       alt={sample.title}
+                      loading="lazy"
+                      width={256}
+                      height={256}
                       className="h-auto w-full object-cover"
                     />
                   </div>
@@ -966,9 +978,7 @@ export default function App() {
           id="contact"
           className="mt-20 border border-zinc-300 bg-[#f3efe8]/70 backdrop-blur-[3px] p-6 sm:p-8"
         >
-          {/* The main grid remains 2 columns: Text (Left) and Action Stack (Right) */}
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-            {/* Column 1: Text Content */}
             <div>
               <SectionLabel>Contact</SectionLabel>
               <h2 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl max-w-3xl">
@@ -981,12 +991,13 @@ export default function App() {
                 contribute to meaningful, technically challenging projects.
               </p>
             </div>
-
-            {/* Column 2: The Vertical Stack (Image + Button) */}
             <div className="flex flex-col items-end gap-8">
               <img
                 src="https://avatars.githubusercontent.com/u/195119975?v=4"
                 alt="Jack Rose"
+                loading="lazy"
+                width={192}
+                height={192}
                 className="h-48 w-48 rounded-full object-cover border border-zinc-300 shadow-lg"
               />
 
