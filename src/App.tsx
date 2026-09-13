@@ -123,7 +123,7 @@ const projects: Project[] = [
     summary:
       "A predictive coding library created in C++ with bindings for Python, delivering performance on CPU currently faster than top libraries like pcn-torch.",
     outcome:
-      "98% accuracy on MNIST in 60 seconds (rivaling PyTorch), and neurologically inspired software, available with clean documentation.",
+      "93% accuracy on MNIST in 1000 seconds (rivaling PyTorch), and neurologically inspired software, available with clean documentation.",
     tools: ["C++", "BLAS", "OMP", "Python", "OpenMP", "CUDA", "CMake"],
     metrics: [
       { label: "Type", value: "AI/ML" },
