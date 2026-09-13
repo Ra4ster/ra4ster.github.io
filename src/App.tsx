@@ -123,7 +123,7 @@ const projects: Project[] = [
     summary:
       "A predictive coding library created in C++ with bindings for Python, delivering performance on CPU currently faster than top libraries like pcn-torch.",
     outcome:
-      "93% accuracy on MNIST in 1000 seconds (rivaling PyTorch), and neurologically inspired software, available with clean documentation.",
+      "98% accuracy on MNIST in 60 seconds (rivaling PyTorch), and neurologically inspired software, available with clean documentation.",
     tools: ["C++", "BLAS", "OMP", "Python", "OpenMP", "CUDA", "CMake"],
     metrics: [
       { label: "Type", value: "AI/ML" },
@@ -179,7 +179,7 @@ const caseStudies: CaseStudy[] = [
     points: [
       "Core numerics in C++ with BLAS and OpenMP for CPU performance, with optional CUDA for GPU workloads, wrapped in Python bindings so the library is usable from either side of the stack.",
       "Predictive coding is a biologically inspired alternative to standard backpropagation, and the implementation focuses on making that idea practical rather than purely academic.",
-      "Reached 93% accuracy on MNIST in 1000 seconds, with performance on CPU currently ahead of comparable libraries like pcn-torch.",
+      "Reached 98% accuracy on MNIST in 60 seconds, with performance on CPU currently ahead of comparable libraries like pcn-torch.",
       "Shipped with CMake-based builds and documentation, so it's set up to be used rather than just cloned and read.",
     ],
     image: "/MNIST_results.jpg",
