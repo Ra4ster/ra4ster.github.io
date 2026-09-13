@@ -123,14 +123,14 @@ const projects: Project[] = [
     summary:
       "A predictive coding library created in C++ with bindings for Python, delivering performance on CPU currently faster than top libraries like pcn-torch.",
     outcome:
-      "93% accuracy on MNIST in 1000 seconds, and neurologically inspired software, available with clean documentation.",
+      "98% accuracy on MNIST in 60 seconds (rivaling PyTorch), and neurologically inspired software, available with clean documentation.",
     tools: ["C++", "BLAS", "OMP", "Python", "OpenMP", "CUDA", "CMake"],
     metrics: [
       { label: "Type", value: "AI/ML" },
       { label: "Focus", value: "Performance & DevX" },
       { label: "Level", value: "Full Stack" },
     ],
-    image: "/MNIST_results.png",
+    image: "/MNIST_results.jpg",
   },
 ];
 
@@ -182,7 +182,7 @@ const caseStudies: CaseStudy[] = [
       "Reached 93% accuracy on MNIST in 1000 seconds, with performance on CPU currently ahead of comparable libraries like pcn-torch.",
       "Shipped with CMake-based builds and documentation, so it's set up to be used rather than just cloned and read.",
     ],
-    image: "/MNIST_results.png",
+    image: "/MNIST_results.jpg",
     imageAlt: "Deepity MNIST training results",
     externalHref: "https://github.com/Ra4ster/deepity",
     externalLabel: "View source on GitHub",
@@ -317,7 +317,7 @@ function useTheme() {
     try {
       window.localStorage.setItem("theme", theme);
     } catch {
-      // ignore storage errors (e.g. private browsing)
+      // ignore storage errors
     }
   }, [theme]);
 
@@ -1306,7 +1306,7 @@ export default function App() {
           </div>
         </motion.header>
 
-        <section className="grid gap-4 lg:grid-cols-[1.12fr_0.88fr]">
+        <section className="grid gap-4 lg:grid-cols-2">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -1322,7 +1322,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid gap-4 border-b border-[var(--border)] py-4 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="grid gap-8 border-b border-[var(--border)] py-4 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div className="text-sm leading-7 text-[var(--text)]">
                   I build high-performance systems and machine learning
                   infrastructure, focusing on optimization, scalability, and
@@ -1419,12 +1419,10 @@ export default function App() {
                     Figure 00 / Workspace
                   </div>
                   <div className="mt-2 text-2xl font-semibold tracking-tight">
-                    Portfolio highlights and selected work.
+                    Systems & Analytics at Scale.
                   </div>
                   <p className="mt-2 text-sm leading-7 text-white/85">
-                    This area is ready for your best dashboard screenshot,
-                    project visual, or workspace image so the site feels
-                    personal and complete.
+                    Bridging low-level system performance with high-level data analytics, ensuring models and pipelines run efficiently from the CPU up to production.
                   </p>
                 </div>
                 <div className="grid gap-3 border-t border-white/20 pt-4 sm:grid-cols-3">
