@@ -446,6 +446,10 @@ function SiteBackground() {
     const TWINKLE_MAX = 1.0;
     const TWINKLE_SPEED = 0.001;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
     let height = 0;
@@ -574,7 +578,9 @@ function SiteBackground() {
     resizeObserver.observe(canvas);
     window.addEventListener("resize", resize);
 
-    rafId = requestAnimationFrame(loop);
+    if (!prefersReducedMotion) {
+      rafId = requestAnimationFrame(loop);
+    }
 
     return () => {
       cancelAnimationFrame(raf1);
