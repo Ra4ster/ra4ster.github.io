@@ -1,34 +1,29 @@
 .choice-selector {
+  --choice-height: 42px;
   position: relative;
   display: flex;
   align-self: flex-start;
-  width: 8rem;
+  width: 7.5rem;
   height: 200px;
 }
 
 .choice-selector__choice {
   position: absolute;
-  pointer-events: none;
-  justify-content: flex-end;
-  text-align: right;
-  width: 100%;
   top: 50%;
-  margin-top: -1.25rem;
+  margin-top: calc(var(--choice-height) / -2);
   display: flex;
-  height: 2.5rem;
   align-items: center;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  justify-content: flex-end;
+  width: 100%;
+  height: var(--choice-height);
+  padding: 0 0.5rem;
+  text-align: right;
+  pointer-events: none;
   opacity: 0;
   transform: translateY(0);
   transition:
     transform 300ms ease,
     opacity 150ms ease;
-}
-
-.choice-selector:not(.scrolling) .choice-selector__choice:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
 }
 
 .choice-selector__choice.selected {
@@ -37,11 +32,16 @@
   text-decoration-thickness: 2px;
 }
 
-.choice-selector.expanded .choice-selector__choice {
-  transform: translateY(var(--position));
+.choice-selector:hover .choice-selector__choice {
+  transform: translateY(calc(var(--offset) * var(--choice-height)));
   opacity: var(--choice-opacity);
   pointer-events: auto;
   transition:
     transform 300ms ease,
     opacity 300ms ease-in;
+}
+
+.choice-selector:not(.scrolling) .choice-selector__choice:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }

@@ -1,33 +1,43 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: 'Alliance No.1';
-  src: url('./assets/alliance-font-family/degarism-studio-alliance-no-1-light.otf') format('opentype');
+  font-family: "Alliance No.1";
+  src: url("./assets/alliance-font-family/degarism-studio-alliance-no-1-light.otf")
+    format("opentype");
   font-weight: light;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Alliance No.2';
-  src: url('./assets/alliance-font-family/degarism-studio-alliance-no-2-light.otf') format('opentype');
+  font-family: "Alliance No.2";
+  src: url("./assets/alliance-font-family/degarism-studio-alliance-no-2-light.otf")
+    format("opentype");
   font-weight: light;
   font-style: normal;
 }
 
 body {
-  font-family: 'Alliance No.1';
+  font-family: "Alliance No.1";
+}
+
+.alliance2 {
+  font-family: "Alliance No.2";
 }
 
 /* Background */
 
 @keyframes slideBackground {
-   0% { background-position: 0% 50%; }
-   100% { background-position: 100% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 sliding-bg {
-   background-image: url('your-image-url.jpg');
-   height: 100vh;
-   background-size: cover;
-   background-repeat: no-repeat;
-   animation: slideBackground 10s linear infinite;
+  background-image: url("your-image-url.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: slideBackground 10s linear infinite;
 }
