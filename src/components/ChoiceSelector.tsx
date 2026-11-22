@@ -35,10 +35,12 @@ export default function ChoiceSelector({
     if (now - lastScroll.current < 300) return;
 
     const direction = Math.sign(e.deltaY);
-    const next = Math.max(
-      0,
-      Math.min(choices.length - 1, selected + direction),
-    );
+    const next =
+      selected < 0
+        ? direction > 0
+          ? 0
+          : choices.length - 1
+        : Math.max(0, Math.min(choices.length - 1, selected + direction));
 
     if (!direction || next === selected) return;
 
@@ -55,8 +57,17 @@ export default function ChoiceSelector({
       className={`choice-selector ${scrolling ? "scrolling" : ""} ${className}`}
       onWheel={handleWheel}
     >
+      {selected < 0 && (
+        <span className="choice-selector__placeholder" aria-hidden="true">
+          ______
+        </span>
+      )}
       {choices.map((choice, i) => {
-        const offset = i - selected;
+        const offset = selected >= 0 ? i - selected : i;
+        const opacity =
+          selected >= 0
+            ? Math.max(0.15, 1 - Math.abs(offset) * 0.25)
+            : Math.max(0.2, 1 - i * 0.15);
 
         return (
           <Link
@@ -66,7 +77,7 @@ export default function ChoiceSelector({
             style={
               {
                 "--offset": offset,
-                "--choice-opacity": Math.max(0.15, 1 - Math.abs(offset) * 0.25),
+                "--choice-opacity": opacity,
               } as React.CSSProperties
             }
           >

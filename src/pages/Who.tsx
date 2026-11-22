@@ -1,10 +1,20 @@
+import { motion } from "motion/react";
+
 export default function Who() {
   return (
-    <section className="w-full max-w-xl px-6 text-black">
+    <motion.section
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="w-full max-w-xl px-6 text-black"
+    >
       <div className="h-32 w-32 mb-5 overflow-hidden rounded-full shadow-xl">
         <img
-          src="./profile2025.jpg"
+          src="/images/profile2025.jpg"
           alt="Jack Rose"
+          loading="eager"
+          decoding="async"
           draggable="false"
           className="h-full w-full scale-200 translate-y-10 object-cover drag-none"
         />
@@ -26,6 +36,6 @@ export default function Who() {
           Scroll through the questions to learn more.
         </p>
       </div>
-    </section>
+    </motion.section>
   );
 }

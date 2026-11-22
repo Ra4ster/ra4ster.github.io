@@ -1,10 +1,10 @@
 .choice-selector {
-  --choice-height: 42px;
+  --choice-height: 52px;
   position: relative;
   display: flex;
   align-self: flex-start;
-  width: 7.5rem;
-  height: 200px;
+  width: 11.5rem;
+  height: 220px;
 }
 
 .choice-selector__choice {
@@ -16,7 +16,7 @@
   justify-content: flex-end;
   width: 100%;
   height: var(--choice-height);
-  padding: 0 0.5rem;
+  padding: 0 0.75rem;
   text-align: right;
   pointer-events: none;
   opacity: 0;
@@ -30,6 +30,26 @@
   opacity: 1;
   text-decoration: underline;
   text-decoration-thickness: 2px;
+}
+
+.choice-selector__placeholder {
+  position: absolute;
+  top: 50%;
+  margin-top: calc(var(--choice-height) / -2);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: var(--choice-height);
+  padding: 0 0.75rem;
+  text-align: right;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+.choice-selector:hover .choice-selector__placeholder {
+  opacity: 0;
 }
 
 .choice-selector:hover .choice-selector__choice {

@@ -4,16 +4,18 @@
   font-family: "Alliance No.1";
   src: url("./assets/alliance-font-family/degarism-studio-alliance-no-1-light.otf")
     format("opentype");
-  font-weight: light;
+  font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Alliance No.2";
   src: url("./assets/alliance-font-family/degarism-studio-alliance-no-2-light.otf")
     format("opentype");
-  font-weight: light;
+  font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 body {
@@ -24,20 +26,64 @@ body {
   font-family: "Alliance No.2";
 }
 
-/* Background */
-
-@keyframes slideBackground {
-  0% {
-    background-position: 0% 50%;
+@keyframes timelineYearExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
   }
-  100% {
-    background-position: 100% 50%;
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }
-sliding-bg {
-  background-image: url("your-image-url.jpg");
-  height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  animation: slideBackground 10s linear infinite;
+
+@keyframes timelineYearEnter {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-year {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 0.65em);
+  width: 2.6em;
+  height: 1.4em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-digit {
+  position: relative;
+  display: inline-grid;
+  width: 0.65em;
+  height: 1.4em;
+  overflow: hidden;
+  place-items: center;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.timeline-digit__face {
+  display: block;
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.timeline-digit--out {
+  animation: timelineYearExit 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.timeline-digit--in {
+  animation: timelineYearEnter 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-digit--out,
+  .timeline-digit--in {
+    animation: none;
+  }
 }

@@ -5,34 +5,85 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 0 1rem;
+  overflow-x: hidden;
 }
 
 .page-layout__main {
   width: 100%;
-  min-height: calc(100vh - 4rem);
+  height: 100dvh;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  transition: min-height 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 #centergrid {
   flex-shrink: 0;
   margin: 0;
+  position: relative;
+  z-index: 40;
 }
 
 .page-layout__side {
-  max-width: 28rem;
+  flex: 0 0 50%;
+  min-width: 0;
+  max-width: 36rem;
+  align-self: stretch;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.page-layout--top {
+  height: auto;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .page-layout--top .page-layout__main {
-  min-height: 18rem;
+  height: auto;
+  min-height: 8rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
 }
 
+.page-layout--home .page-layout__side,
 .page-layout--top .page-layout__side {
   display: none;
+}
+
+.page-layout--where .page-layout__side {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  pointer-events: none;
+}
+
+.page-layout--where .page-layout__main {
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+.page-layout--why .page-layout__side {
+  max-width: 50rem;
+}
+
+.page-layout:not(.page-layout--why) iframe {
+  display: none;
+}
+
+.page-layout--how .page-layout__side {
+  max-width: 40rem;
 }
 
 .page-layout__projects {
@@ -45,11 +96,34 @@
   .page-layout__main {
     flex-direction: column;
     gap: 1rem;
+    height: auto;
+    min-height: 100dvh;
+    padding: 3rem 0;
+  }
+
+  .page-layout__side {
+    flex: 1;
+    width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .page-layout__main {
     transition: none;
+  }
+}
+
+.page-enter {
+  animation: page-fade-in 300ms ease forwards;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
