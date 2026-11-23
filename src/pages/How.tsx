@@ -65,9 +65,9 @@ export default function How() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -15 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="text-black w-full"
+      className="text-black w-full px-2 sm:px-0 pb-16 sm:pb-0"
     >
-      <div className="bg-transparent border-black border-2 p-3">
+      <div className="bg-transparent border-black border-2 p-2 sm:p-3">
         <p className="text-xs font-mono text-zinc-600 mb-2 leading-relaxed">
           Tell me about what you're here for. Using{" "}
           <a
@@ -88,7 +88,7 @@ export default function How() {
               name="message"
               maxLength={200}
               placeholder="e.g. Looking for a CUDA engineer to optimize our HPC kernels..."
-              className="bg-black text-sm text-white outline-none focus:ring-1 focus:ring-zinc-600 w-full p-3 font-mono"
+              className="bg-black text-xs sm:text-sm text-white outline-none focus:ring-1 focus:ring-zinc-600 w-full p-2.5 sm:p-3 font-mono"
             />
             <button
               type="submit"
@@ -113,14 +113,14 @@ export default function How() {
               key={idx}
               type="button"
               onClick={() => handleSuggestionClick(s)}
-              className="text-[10px] font-mono border border-zinc-300 text-zinc-600 px-2 py-0.5 rounded-full hover:bg-black hover:text-white hover:border-black transition-colors truncate max-w-full"
+              className="text-[9px] sm:text-[10px] font-mono border border-zinc-300 text-zinc-600 px-2 py-0.5 rounded-full hover:bg-black hover:text-white hover:border-black transition-colors truncate max-w-full"
             >
               + {s}
             </button>
           ))}
         </div>
         <div className="flex items-stretch">
-          <div className="bg-black text-white w-full min-h-[300px] p-5 flex flex-col items-center justify-center">
+          <div className="bg-black text-white w-full min-h-[260px] sm:min-h-[300px] p-3 sm:p-5 flex flex-col items-center justify-center">
             {error ? (
               <span className="text-sm font-mono text-rose-400 text-center px-4">
                 {error}

@@ -21,14 +21,53 @@ export default function ChoiceSelector({
   onSelect,
 }: Props) {
   const [scrolling, setScrolling] = useState(false);
+  const [open, setOpen] = useState(false);
   const lastScroll = useRef(0);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return () => {
       if (timeout.current) clearTimeout(timeout.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("click", handleOutsideClick);
+    window.addEventListener("touchstart", handleOutsideClick, { passive: true });
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+      window.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, [open]);
+
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartY.current = e.touches[0].clientY;
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (touchStartY.current === null) return;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    touchStartY.current = null;
+    if (Math.abs(deltaY) < 30) return;
+    const direction = Math.sign(deltaY);
+    const next =
+      selected < 0
+        ? direction > 0
+          ? 0
+          : choices.length - 1
+        : Math.max(0, Math.min(choices.length - 1, selected + direction));
+
+    if (!direction || next === selected) return;
+    onSelect(next);
+  }
 
   function handleWheel(e: React.WheelEvent) {
     const now = Date.now();
@@ -54,8 +93,12 @@ export default function ChoiceSelector({
 
   return (
     <div
-      className={`choice-selector ${scrolling ? "scrolling" : ""} ${className}`}
+      ref={rootRef}
+      className={`choice-selector ${open ? "open" : ""} ${scrolling ? "scrolling" : ""} ${className}`}
       onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onClick={() => setOpen((prev) => !prev)}
     >
       {selected < 0 && (
         <span className="choice-selector__placeholder" aria-hidden="true">
@@ -73,6 +116,7 @@ export default function ChoiceSelector({
           <Link
             key={choice.label}
             to={choice.path}
+            onClick={() => setOpen(false)}
             className={`choice-selector__choice ${i === selected ? "selected" : ""}`}
             style={
               {

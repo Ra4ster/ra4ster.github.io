@@ -23,7 +23,7 @@
   flex-shrink: 0;
   margin: 0;
   position: relative;
-  z-index: 40;
+  z-index: 20;
 }
 
 .page-layout__side {
@@ -48,8 +48,8 @@
   min-height: 8rem;
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: rgba(255, 255, 255, 0.9);
+  z-index: 25;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
 }
 
@@ -89,21 +89,31 @@
 .page-layout__projects {
   width: 100%;
   max-width: 1200px;
-  margin: 1rem auto 3rem;
+  margin: 1.5rem auto 5rem;
+  padding-top: 1.5rem;
 }
 
 @media (max-width: 900px) {
   .page-layout__main {
     flex-direction: column;
-    gap: 1rem;
+    gap: 3.5rem;
     height: auto;
     min-height: 100dvh;
-    padding: 3rem 0;
+    padding: 4.5rem 0 6rem 0;
   }
 
   .page-layout__side {
     flex: 1;
     width: 100%;
+  }
+
+  .page-layout--top .page-layout__main {
+    min-height: 6rem;
+    padding: 2.5rem 0 1rem 0;
+  }
+
+  .page-layout--where .page-layout__main {
+    padding-bottom: 4rem;
   }
 }
 

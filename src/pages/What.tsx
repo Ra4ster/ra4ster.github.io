@@ -2,10 +2,10 @@ import BuiltCard from "../components/BuiltCard";
 
 export default function What() {
   return (
-    <section className="what-page mx-auto w-full max-w-5xl px-6">
+    <section className="what-page mx-auto w-full max-w-5xl px-4 sm:px-6 pt-6 sm:pt-4">
       <div className="flex">
-        <h1 className="text-5xl text-black">I've built</h1>
-        <h1 className="inline-block text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
+        <h1 className="text-3xl sm:text-5xl text-black">I've built</h1>
+        <h1 className="inline-block text-3xl sm:text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
           ....
         </h1>
       </div>
@@ -31,8 +31,8 @@ export default function What() {
         />
       </div>
       <div className="flex">
-        <h1 className="text-5xl text-black">I've written</h1>
-        <h1 className="inline-block text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
+        <h1 className="text-3xl sm:text-5xl text-black">I've written</h1>
+        <h1 className="inline-block text-3xl sm:text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
           ....
         </h1>
       </div>
@@ -58,8 +58,8 @@ export default function What() {
         />
       </div>
       <div className="flex">
-        <h1 className="text-5xl text-black">I've learned</h1>
-        <h1 className="inline-block text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
+        <h1 className="text-3xl sm:text-5xl text-black">I've learned</h1>
+        <h1 className="inline-block text-3xl sm:text-5xl bg-gradient-to-r from-black to-white bg-clip-text text-transparent">
           ....
         </h1>
       </div>

@@ -129,25 +129,24 @@ export default function When() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="h-full w-full text-black flex items-center"
     >
-      <div className="flex h-full w-full gap-8">
-        <div className="flex h-full w-28 shrink-0 flex-col items-center border-l-2 border-black">
+      <div className="flex h-[360px] sm:h-full w-full gap-4 sm:gap-8 px-2 sm:px-0">
+        <div className="flex h-full w-20 sm:w-28 shrink-0 flex-col items-center ml-3 sm:ml-0">
           <ChevronUp
-            size={48}
             strokeWidth={1.5}
-            className="my-3 cursor-pointer opacity-40 transition-opacity duration-200 ease-in hover:opacity-100"
+            className="my-2 sm:my-3 size-8 sm:size-12 cursor-pointer opacity-40 transition-opacity duration-200 ease-in hover:opacity-100"
             onClick={() =>
               setSelected(
                 (selected) => (selected - 1 + items.length) % items.length,
               )
             }
           />
-          <div className="relative flex min-h-0 w-full flex-1 flex-col">
+          <div className="relative flex min-h-0 w-full flex-1 flex-col border-l-2 border-black">
             {items.map((item, i) => (
               <button
                 key={item.date}
                 type="button"
                 aria-pressed={selected === i}
-                className="flex flex-1 cursor-pointer items-center justify-center alliance2 transition-opacity duration-300"
+                className="flex flex-1 cursor-pointer items-center justify-center text-xs sm:text-base alliance2 transition-opacity duration-300"
                 style={{
                   opacity: Math.max(0.2, 1 - Math.abs(selected - i) * 0.15),
                 }}
@@ -163,14 +162,13 @@ export default function When() {
             />
           </div>
           <ChevronDown
-            size={48}
             strokeWidth={1.5}
-            className="my-3 cursor-pointer opacity-40 transition-opacity duration-200 ease-in hover:opacity-100"
+            className="my-2 sm:my-3 size-8 sm:size-12 cursor-pointer opacity-40 transition-opacity duration-200 ease-in hover:opacity-100"
             onClick={() => setSelected((selected + 1) % items.length)}
           />
         </div>
         <article className="grid min-w-0 flex-1 content-center gap-2">
-          <h2 className="text-xl">
+          <h2 className="text-lg sm:text-xl font-semibold">
             <span className="sr-only">{items[selected].date}</span>
             <span aria-hidden="true">
               <SlidingYear value={items[selected].date} />
@@ -181,13 +179,13 @@ export default function When() {
               <p
                 key={item.date}
                 aria-hidden="true"
-                className="invisible col-start-1 row-start-1 text-base leading-relaxed"
+                className="invisible col-start-1 row-start-1 text-sm sm:text-base leading-relaxed"
               >
                 {item.text}
               </p>
             ))}
             <div className="col-start-1 row-start-1 min-w-0">
-              <p className="relative text-base leading-relaxed text-gray-600">
+              <p className="relative text-sm sm:text-base leading-relaxed text-gray-600">
                 <span
                   className={displayedText === selectedText ? "" : "invisible"}
                 >
